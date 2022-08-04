@@ -1,0 +1,231 @@
+body {
+  display: flex;
+  width: 10em;
+  font-size: 12px;
+  border-radius: 0.5em;
+}
+
+/* * {
+  border: 1px solid red;
+} */
+
+button {
+  cursor: pointer;
+}
+
+.btn-outline {
+  border-radius: 0.5em;
+  background-color: #ffffff;
+  border: solid #5fbff9 2px;
+}
+
+.btn-outline:hover {
+  background-color: #BFF2FE;
+}
+
+.btn-ghost {
+  border-radius: 0.5em;
+  background-color: white;
+  border: none;
+}
+
+.btn-ghost:hover {
+  background-color: #BFF2FE;
+}
+
+.wide {
+  width: 20em;
+}
+
+.flex {
+  display: flex;
+}
+
+.column-spaced-evenly {
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.row-start {
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.row-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-spaced-around {
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/* Main Screen */
+
+#mainScreen {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+/* action button styles */
+
+.action-button {
+  height: 5em;
+}
+
+#actionButtonContainer {
+  width: 70%;
+}
+
+#actionButtonContainer button:not(:last-child) {
+  margin-bottom: 1em;
+}
+
+/* advanced settings button styles  */
+
+#extraButtonContainer {
+  width: 25%;
+  margin-left: 5%;
+}
+
+.icon-button {
+  height: 2.5em;
+  width: 2.5em;
+  padding: 7.5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.icon-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* advanced settings panel styles */
+
+.hidden {
+  display: none !important;
+}
+/* advanced settings accordion styles */
+
+.accordion-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.advanced-settings-accordion {
+  width: 100%;
+  height: 3em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.25em;
+  font-weight: bold;
+  justify-content: space-between;
+  background-color: white;
+  border: none;
+}
+
+.accordion-arrow {
+  height: 1em;
+  width: 1em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.advanced-settings-accordion:hover {
+  background-color: whitesmoke;
+}
+
+.advanced-settings-accordion-content {
+  width: 90%;
+  padding-top: 0.5em;
+  padding-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.vertical-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#blankGradesAccordionContent p:first-of-type {
+  display: inline;
+  margin-right: 0.5em;
+}
+
+#blankGradesFillInput {
+  display: inline;
+  width: 15%;
+}
+
+#fillSpeedInput {
+  display: inline;
+  width: 25%;
+}
+
+#fillSpeedLabel {
+  display: inline;
+  margin-right: 0.5em;
+}
+
+#newSpecialMarksContainer input {
+  display: block;
+}
+
+#newSpecialMarksContainer {
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+#newSpecialMarksButton {
+  margin-top: 1em;
+}
+
+.special-marks-header {
+  text-decoration: underline;
+}
+
+.marks-grid {
+  width: 100%;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 40% 40% 20%;
+  border-bottom: 2px dotted black;
+}
+
+.grid-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-border {
+  border-bottom: 2px solid black;
+}
+
+.number-input {
+  width: 3.5em;
+}

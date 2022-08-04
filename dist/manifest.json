@@ -1,0 +1,10 @@
+{
+  "name": "Gradeupdater Extension",
+  "description": "This is a tool to grab grades from the Gradeupdater website and place them in PowerSchool.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab", "scripting", "storage", "clipboardRead"]
+}
