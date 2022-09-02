@@ -1,6 +1,6 @@
-import { specialMarksContainer, newSpecialMarks } from "./elements";
-import useReducer from "./useReducer";
-import { hide, show } from "./visibility";
+import { specialMarksContainer, newSpecialMarks } from "../elements";
+import useReducer from "../useReducer";
+import { hide, show } from "../visibility";
 
 // global variables and state management
 

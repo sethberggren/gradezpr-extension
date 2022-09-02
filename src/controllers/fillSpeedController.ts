@@ -1,5 +1,5 @@
-import { fillSpeedInput } from "./elements";
-import useReducer from "./useReducer";
+import { fillSpeedInput } from "../elements";
+import useReducer from "../useReducer";
 
 // state management
 

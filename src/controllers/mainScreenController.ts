@@ -1,8 +1,7 @@
-import {
-  copyGradesAction,
-  repeatGetStudents,
-  clearGradesAction,
-} from "./background";
+import clearGradesAction from "../actions/clearGrades";
+import copyGradesFromClipboard from "../actions/copyGradesFromClipboard";
+import copyGradesFromWebsite from "../actions/copyGradesFromWebsite";
+import pasteGradesAction from "../actions/pasteGrades";
 import {
   copyGrades,
   pasteGrades,
@@ -11,18 +10,26 @@ import {
   advancedSettingsBack,
   mainScreen,
   advancedSettingsPanel,
-} from "./elements";
-import { hide, show } from "./visibility";
+  copyGradesFromWebsite as copyGradesFromWebsiteBtn,
+  copiedGradesDescription,
+} from "../elements";
+import { hide, show } from "../visibility";
+import {
+  gradeCurveController,
+  gradeCurveInitialize,
+} from "./gradeCurveController";
 
 // global variables and functions:
-const copyGradesDefault = "Copy Grades";
+const copyGradesDefault = "There are no copied grades.";
 
 const copyGradesNumText = (parsedGrades: ParsedGrades[]) => {
-  return `${parsedGrades.length} grades copied`;
+  return `${parsedGrades.length} grades copied.`;
 };
 
 export function mainScreenController() {
   copyGrades.onclick = copyGradesClickHandler;
+
+  copyGradesFromWebsiteBtn.onclick = copyGradesFromWebsiteClickHandler;
 
   pasteGrades.onclick = pasteGradesClickHandler;
 
@@ -31,17 +38,20 @@ export function mainScreenController() {
   advancedSettings.onclick = advancedSettingsClickHandler;
 
   advancedSettingsBack.onclick = advancedSettingsBackClickHandler;
+
+  gradeCurveController();
 }
 
 export async function mainScreenInitialize() {
-
   // see how many parsed grades there are, and update the copy grades button accordingly
   const { parsedGrades } = (await chrome.storage.local.get([
     "parsedGrades",
   ])) as ParsedGradesStorage;
 
+  gradeCurveInitialize();
+
   if (parsedGrades) {
-    copyGrades.innerText =
+    copiedGradesDescription.innerText =
       parsedGrades.length === 0
         ? copyGradesDefault
         : copyGradesNumText(parsedGrades);
@@ -58,14 +68,26 @@ async function copyGradesClickHandler() {
 
   await chrome.scripting.executeScript({
     target: { tabId: tab.id ? tab.id : -1 },
-    func: copyGradesAction,
+    func: copyGradesFromClipboard,
   });
 
   const { parsedGrades } = (await chrome.storage.local.get([
     "parsedGrades",
   ])) as ParsedGradesStorage;
 
-  copyGrades.innerText = copyGradesNumText(parsedGrades);
+  copiedGradesDescription.innerText = copyGradesNumText(parsedGrades);
+}
+
+async function copyGradesFromWebsiteClickHandler() {
+  const [tab] = await chrome.tabs.query({
+    active: true,
+    currentWindow: true,
+  });
+
+  await chrome.scripting.executeScript({
+    target: { tabId: tab.id ? tab.id : -1 },
+    func: copyGradesFromWebsite,
+  });
 }
 
 async function pasteGradesClickHandler() {
@@ -76,7 +98,7 @@ async function pasteGradesClickHandler() {
 
   chrome.scripting.executeScript({
     target: { tabId: tab.id ? tab.id : -1 },
-    func: repeatGetStudents,
+    func: pasteGradesAction,
   });
 }
 
@@ -91,7 +113,7 @@ async function clearGradesClickHandler() {
     func: clearGradesAction,
   });
 
-  copyGrades.innerText = copyGradesDefault;
+  copiedGradesDescription.innerText = copyGradesDefault;
 }
 
 function advancedSettingsClickHandler() {

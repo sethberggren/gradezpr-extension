@@ -1,17 +1,14 @@
-import accordionController from "./accordionController";
-import {
-  blankGradesController,
-  blankGradesInitialize,
-} from "./blankGradesController";
+import accordionController from "./controllers/accordionController";
+import { blankGradesController, blankGradesInitialize } from "./controllers/blankGradesController";
 import {
   fillSpeedController,
   fillSpeedInitialize,
-} from "./fillSpeedController";
-import { mainScreenController, mainScreenInitialize } from "./mainScreenController";
+} from "./controllers/fillSpeedController";
+import { mainScreenController, mainScreenInitialize } from "./controllers/mainScreenController";
 import {
   specialMarkGradesController,
   specialMarksInitialize,
-} from "./specialGradeMarksController";
+} from "./controllers/specialGradeMarksController";
 
 
 // initialize everything when the popup comes up

@@ -1,5 +1,4 @@
-export async function repeatGetStudents(): Promise<void> {
-
+export default async function pasteGradesAction(): Promise<void> {
   // special buttons from the keypad in Powerschool.
   const specialButtons: { [key in SpecialMarksOption]: HTMLButtonElement } = {
     Missing: document.getElementById(
@@ -40,6 +39,8 @@ export async function repeatGetStudents(): Promise<void> {
     .specialMarks as SpecialMarks[];
   const fillSpeed = (await chrome.storage.local.get("fillSpeed")).fillSpeed
     .fillSpeed as number;
+  const gradeCurve = (await chrome.storage.local.get("gradeCurveForm"))
+    .gradeCurveForm as GradeCurveForm;
 
   // initialize global variables to let the program to know when to stop filling grades.
 
@@ -49,6 +50,24 @@ export async function repeatGetStudents(): Promise<void> {
   const { parsedGrades } = (await chrome.storage.local.get([
     "parsedGrades",
   ])) as { parsedGrades: { name: string; grade: number }[] };
+
+  const maxGrade = Math.max(...parsedGrades.map((grade) => grade.grade));
+  const minGrade = Math.min(...parsedGrades.map((grade) => grade.grade));
+
+  const curveGrades = (grade: number) => {
+    const { curveGradesCheckbox, minGradeCurve, maxGradeCurve } = gradeCurve;
+
+    if (!curveGradesCheckbox || !minGradeCurve || !maxGradeCurve) {
+      return grade;
+    } else {
+      const newGrade =
+        maxGradeCurve +
+        ((minGradeCurve - maxGradeCurve) / (minGrade - maxGrade)) *
+          (grade - maxGrade);
+
+      return newGrade;
+    }
+  };
 
   if (parsedGrades.length === 0) {
     alert(
@@ -61,11 +80,8 @@ export async function repeatGetStudents(): Promise<void> {
     await getStudents();
   }
 
-
   // Main function that gets a student and copies the grade into the grade box on PowerSchool.
   async function getStudents(): Promise<void> {
-
-
     const possibleStudent = document.body.querySelector(
       "#score-inspector-row-name"
     )?.children[0].innerHTML;
@@ -107,8 +123,11 @@ export async function repeatGetStudents(): Promise<void> {
       }
 
       keypad.click();
-      numToButtonPress(match.grade, keypadButtons);
-      handleSpecialMarks(match.grade);
+
+      const curvedGrade = curveGrades(match.grade);
+
+      numToButtonPress(curvedGrade, keypadButtons);
+      handleSpecialMarks(curvedGrade);
 
       await clickMoveDown();
     } else {
@@ -126,7 +145,7 @@ export async function repeatGetStudents(): Promise<void> {
   async function clickMoveDown(): Promise<void> {
     document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 40 }));
     document.dispatchEvent(new KeyboardEvent("keyup", { keyCode: 40 }));
-    
+
     // pauser must be there to give the system appropriate time to "catch up"
     await pauser(fillSpeed);
   }
@@ -146,7 +165,6 @@ export async function repeatGetStudents(): Promise<void> {
   async function pauser(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(() => resolve(), ms));
   }
-
 
   // gets numberic keypad buttons from PS
   function getKeypadButtons() {
@@ -183,57 +201,4 @@ export async function repeatGetStudents(): Promise<void> {
       keypadButtons[s].click();
     }
   }
-}
-
-export function copyGradesAction() {
-  try {
-
-    // have to create text area to copy and paste from clipboard (navigator.clipboard doesn't work with chrome extensions for some reason...)
-    const textArea = document.createElement("textarea");
-    document.body.append(textArea);
-
-    textArea.select();
-    document.execCommand("paste");
-
-    const gradeString = textArea.value;
-
-    textArea.remove();
-
-    const parsedGrades = splitGradeString(gradeString);
-
-    chrome.storage.local.set({ parsedGrades: parsedGrades }, () =>
-      alert(`Copied ${parsedGrades.length} grades.`)
-    );
-  } catch (e) {
-    console.log(e);
-  }
-
-  // function to parse grades with one grade per line from grade updater and convert to JS object
-  function splitGradeString(str: string): { name: string; grade: number }[] {
-
-    const grades = str.split(/\r?\n/);
-    const gradeRegex = /([0-9]+\.?[0-9]*|\.[0-9]+)/;
-
-    const parsedGrades: { name: string; grade: number }[] = [];
-
-    for (const grade of grades) {
-      if (grade === "") {
-        continue;
-      }
-
-      const match = grade.search(gradeRegex);
-      const name = grade.slice(0, match).trim();
-      const gradeNum = parseFloat(grade.slice(match));
-
-      parsedGrades.push({ name: name, grade: gradeNum });
-    }
-
-    return parsedGrades;
-  }
-}
-
-export function clearGradesAction() {
-  chrome.storage.local.set({ parsedGrades: [] }, () =>
-    alert("Cleared grades!")
-  );
 }

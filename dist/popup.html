@@ -5,20 +5,90 @@
   </head>
   <body>
     <div id="mainScreen" class="flex row-spaced-evenly">
-      <div class="flex column-spaced-evenly" id="actionButtonContainer">
-        <button id="copyGrades" class="action-button btn-outline">
-          Copy Grades
-        </button>
-        <button id="pasteGrades" class="action-button btn-outline">
-          Paste Grades
-        </button>
-        <button id="clearGrades" class="action-button btn-outline">
-          Clear Grades
-        </button>
+      <div class="flex column" id="actionButtonContainer">
+        <p id="copiedGradesDescription" class="description-main">
+          There are no copied grades.
+        </p>
+
+        <div class="flex row-spaced-evenly" id="actionButtons">
+          <button
+            id="copyGrades"
+            class="icon-button-md btn-outline"
+            title="Copy grades from clipboard."
+          >
+            <img
+              src="./clipboardSolid.svg"
+              class="icon-img"
+              alt="Copy grades from clipboard button."
+            />
+          </button>
+
+          <button
+            id="copyGradesFromWebsite"
+            class="icon-button-md btn-outline"
+            title="Copy grades from Google Classroom and other websites."
+          >
+            <img
+              src="./globeSolid.svg"
+              class="icon-img"
+              alt="Copy grades from website button."
+            />
+          </button>
+
+          <button
+            id="pasteGrades"
+            class="icon-button-md btn-outline"
+            title="Paste grades into PowerSchool."
+          >
+            <img
+              src="./pasteSolid.svg"
+              class="icon-img"
+              alt="Paste grades into PowerSchool"
+            />
+          </button>
+          <button
+            id="clearGrades"
+            class="icon-button-md btn-outline"
+            title="Clear grades."
+          >
+            <img src="./trash.svg" class="icon-img" alt="Clear grades." />
+          </button>
+        </div>
+
+        <div class="accordion-container" id="gradeCurveAccordionContainer">
+          <button
+            class="advanced-settings-accordion"
+            id="gradeCurveAccordionController"
+          >
+            <p>Grade Curve Options</p>
+
+            <div class="accordion-arrow">
+              <img src="./arrowDown.svg" class="icon-img" />
+            </div>
+          </button>
+
+          <div
+            class="advanced-settings-accordion-content hidden"
+            id="gradeCurveAccordionContent"
+          >
+            <div class="vertical-stack" style="margin-bottom:0.5rem;">
+              <input type="checkbox" id="curveGradesCheckbox" />
+              <label for="curveGradesCheckbox">Curve grades?</label>
+            </div>
+
+            <div id="gradeCurveOptions">
+              <label for="minGradeCurve">Minimum grade:</label>
+              <input type="number" id="minGradeCurve" />
+
+              <label for="maxGradeCurve">Maximum grade:</label>
+              <input type="number" id="maxGradeCurve" />
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="extraButtonContainer" class="flex column-spaced-evenly">
-        <button id="advancedSettings" class="icon-button btn-ghost">
+        <button id="advancedSettings" class="icon-button-sm btn-ghost">
           <img
             src="./gearIcon.svg"
             class="icon-img"
@@ -31,7 +101,7 @@
 
     <div id="advancedSettingsPanel" class="flex column-spaced-evenly hidden">
       <div class="flex row-start">
-        <button id="advancedSettingsBackArrow" class="icon-button btn-ghost">
+        <button id="advancedSettingsBackArrow" class="icon-button-sm btn-ghost">
           <img class="icon-img" src="./backArrow.svg" />
         </button>
       </div>
@@ -111,13 +181,16 @@
             </div>
 
             <div class="grid-container">
-              <button class="icon-button btn-ghost" id="specialMarksDoneButton">
+              <button
+                class="icon-button-sm btn-ghost"
+                id="specialMarksDoneButton"
+              >
                 <img src="./circleCheck.svg" class="icon-img" />
               </button>
             </div>
           </div>
 
-          <button class="icon-button btn-ghost" id="newSpecialMarksButton">
+          <button class="icon-button-sm btn-ghost" id="newSpecialMarksButton">
             <img src="./circlePlus.svg" class="icon-img" />
           </button>
         </div>
@@ -139,15 +212,16 @@
           class="advanced-settings-accordion-content hidden"
           id="fillSpeedAccordionContent"
         >
+          <div class="vertical-stack">
+            <label id="fillSpeedLabel" for="fillSpeedInput"
+              >Grade Fill Speed:</label
+            >
+            <input type="number" id="fillSpeedInput" />
+          </div>
 
-        <div class="vertical-stack"> 
-          <label id="fillSpeedLabel" for="fillSpeedInput">Grade Fill Speed:</label>
-          <input type="number" id="fillSpeedInput"/>
-        </div>
-          
           <p>
-            <b>Note:</b> Higher numbers represent a slower fill speed. Slower computers
-            may require a slower fill speed, around 1000.
+            <b>Note:</b> Higher numbers represent a slower fill speed. Slower
+            computers may require a slower fill speed, around 1000.
           </p>
         </div>
       </div>

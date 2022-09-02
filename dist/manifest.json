@@ -1,7 +1,7 @@
 {
   "name": "Gradezpr Extension",
   "description": "This is a tool to grab grades from the Gradezpr website and place them in PowerSchool.",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 3,
   "action": {
     "default_popup": "popup.html"

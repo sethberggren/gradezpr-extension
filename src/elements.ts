@@ -1,6 +1,12 @@
 // this file contains all the elements in the popup
 
 export const copyGrades = document.getElementById("copyGrades") as HTMLElement;
+export const copiedGradesDescription = document.getElementById(
+  "copiedGradesDescription"
+) as HTMLElement;
+export const copyGradesFromWebsite = document.getElementById(
+  "copyGradesFromWebsite"
+) as HTMLElement;
 export const pasteGrades = document.getElementById(
   "pasteGrades"
 ) as HTMLElement;
@@ -18,23 +24,31 @@ export const advancedSettingsPanel = document.getElementById(
 ) as HTMLElement;
 export const mainScreen = document.getElementById("mainScreen") as HTMLElement;
 
-const advancedSettingsTitles = ["blankGrades", "specialMarks", "fillSpeed"];
+const accordionTitles = [
+  "blankGrades",
+  "specialMarks",
+  "fillSpeed",
+  "gradeCurve",
+];
 
-export const advancedSettingAccordions: Accordion[] =
-  advancedSettingsTitles.map((title) => {
-    return {
-      container: document.getElementById(
-        `${title}AccordionContainer`
-      ) as HTMLDivElement,
-      controller: document.getElementById(
-        `${title}AccordionController`
-      ) as HTMLButtonElement,
-      content: document.getElementById(
-        `${title}AccordionContent`
-      ) as HTMLElement,
-      expanded: false,
-    };
-  });
+export const gradeCurveForm = {
+  curveGradesCheckbox: document.getElementById("curveGradesCheckbox") as HTMLInputElement,
+  minGradeCurve: document.getElementById("minGradeCurve") as HTMLInputElement,
+  maxGradeCurve: document.getElementById("maxGradeCurve") as HTMLInputElement
+}
+
+export const accordions: Accordion[] = accordionTitles.map((title) => {
+  return {
+    container: document.getElementById(
+      `${title}AccordionContainer`
+    ) as HTMLDivElement,
+    controller: document.getElementById(
+      `${title}AccordionController`
+    ) as HTMLButtonElement,
+    content: document.getElementById(`${title}AccordionContent`) as HTMLElement,
+    expanded: false,
+  };
+});
 
 export const blankGradesForm = {
   blankGradesFillInput: document.getElementById(
@@ -67,4 +81,6 @@ export const newSpecialMarks = {
   ) as HTMLButtonElement,
 };
 
-export const fillSpeedInput = document.getElementById("fillSpeedInput") as HTMLInputElement;
+export const fillSpeedInput = document.getElementById(
+  "fillSpeedInput"
+) as HTMLInputElement;

@@ -1,44 +1,35 @@
-body {
-  display: flex;
-  width: 10em;
-  font-size: 12px;
-  border-radius: 0.5em;
+:root {
+  --border-radius: 0.5rem;
 }
 
-/* * {
-  border: 1px solid red;
-} */
+/* global styles */
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+
+body {
+  display: flex;
+  width: 20rem;
+  font-size: 12px;
+  border-radius: 0.5rem;
+}
 
 button {
   cursor: pointer;
 }
 
-.btn-outline {
-  border-radius: 0.5em;
-  background-color: #ffffff;
-  border: solid #5fbff9 2px;
-}
-
-.btn-outline:hover {
-  background-color: #BFF2FE;
-}
-
-.btn-ghost {
-  border-radius: 0.5em;
-  background-color: white;
-  border: none;
-}
-
-.btn-ghost:hover {
-  background-color: #BFF2FE;
-}
-
-.wide {
-  width: 20em;
-}
-
 .flex {
   display: flex;
+}
+
+.column {
+  flex-direction: column;
 }
 
 .column-spaced-evenly {
@@ -66,39 +57,48 @@ button {
   justify-content: space-between;
 }
 
-/* Main Screen */
-
-#mainScreen {
-  position: relative;
-  height: 100%;
+.row-spaced-evenly {
   width: 100%;
-  z-index: 0;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
-/* action button styles */
+/* Button Styles */
 
-.action-button {
-  height: 5em;
+.btn-outline {
+  border-radius: var(--border-radius);
+  background-color: #ffffff;
+  border: solid #5fbff9 2px;
 }
 
-#actionButtonContainer {
-  width: 70%;
+.btn-outline:hover {
+  background-color: #bff2fe;
 }
 
-#actionButtonContainer button:not(:last-child) {
-  margin-bottom: 1em;
+.btn-ghost {
+  border-radius: var(--border-radius);
+  background-color: white;
+  border: none;
 }
 
-/* advanced settings button styles  */
-
-#extraButtonContainer {
-  width: 25%;
-  margin-left: 5%;
+.btn-ghost:hover {
+  background-color: #bff2fe;
 }
 
-.icon-button {
+.icon-button-sm {
   height: 2.5em;
   width: 2.5em;
+  padding: 7.5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.icon-button-md {
+  height: 4em;
+  width: 4em;
   padding: 7.5px;
   display: flex;
   flex-direction: row;
@@ -110,6 +110,55 @@ button {
 .icon-img {
   width: 100%;
   height: 100%;
+}
+
+.wide {
+  width: 20rem;
+}
+
+/* Main Screen */
+
+#mainScreen {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+#actionButtonContainer {
+  width: 90%;
+}
+
+#actionButtons {
+  margin-bottom: 1rem;
+}
+
+.description-main {
+  width: 100%;
+  background-color: grey;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#gradeCurveOptions {
+  display: grid;
+  width: 75%;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 0.5rem;
+}
+
+#gradeCurveOptions label {
+  text-align: right;
+  padding-right: 1rem;
+}
+
+#extraButtonContainer {
+  width: 10%;
+  margin-left: 5%;
 }
 
 /* advanced settings panel styles */
@@ -128,11 +177,11 @@ button {
 
 .advanced-settings-accordion {
   width: 100%;
-  height: 3em;
+  height: 3rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 1.25em;
+  font-size: 1.1rem;
   font-weight: bold;
   justify-content: space-between;
   background-color: white;
@@ -140,8 +189,8 @@ button {
 }
 
 .accordion-arrow {
-  height: 1em;
-  width: 1em;
+  height: 1rem;
+  width: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -154,8 +203,8 @@ button {
 
 .advanced-settings-accordion-content {
   width: 90%;
-  padding-top: 0.5em;
-  padding-bottom: 1em;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,7 +221,7 @@ button {
 
 #blankGradesAccordionContent p:first-of-type {
   display: inline;
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 
 #blankGradesFillInput {
@@ -187,7 +236,7 @@ button {
 
 #fillSpeedLabel {
   display: inline;
-  margin-right: 0.5em;
+  margin-right: 0.5rem;
 }
 
 #newSpecialMarksContainer input {
@@ -195,12 +244,12 @@ button {
 }
 
 #newSpecialMarksContainer {
-  padding-bottom: 1em;
-  padding-top: 1em;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 #newSpecialMarksButton {
-  margin-top: 1em;
+  margin-top: 1rem;
 }
 
 .special-marks-header {
@@ -227,5 +276,5 @@ button {
 }
 
 .number-input {
-  width: 3.5em;
+  width: 3.5rem;
 }

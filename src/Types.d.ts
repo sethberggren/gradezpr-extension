@@ -61,11 +61,38 @@ type SpecialMarksAction =
       payload: { index: number; update: SpecialMarks };
     };
 
-  type FillSpeedForm = {
-    fillSpeed: number
-  };
+type FillSpeedForm = {
+  fillSpeed: number;
+};
 
-  type FillSpeedActions = {
-    type: "update";
-    payload: number
-  }
+type FillSpeedActions = {
+  type: "update";
+  payload: number;
+};
+
+type StudentGrade = {
+  /**
+   * @name : name in FirstName LastName format
+   * @grade : student's raw score, calculated as points out of 100.
+   */
+  name: string;
+  grade: number;
+};
+
+type StoredGrades = {
+  parsedGrades: StudentGrade[];
+};
+
+type GradeCurveForm = {
+  curveGradesCheckbox: boolean;
+  minGradeCurve: number | undefined;
+  maxGradeCurve: number | undefined;
+};
+
+type GradeCurveAction =
+  | {
+      type: "setCurveGradesCheckbox";
+      payload: boolean;
+    }
+  | { type: "setMinGradeCurve"; payload: number }
+  | { type: "setMaxGradeCurve"; payload: number };

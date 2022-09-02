@@ -1,7 +1,7 @@
-import { blankGradesForm } from "./elements";
-import useReducer from "./useReducer";
-
 // global variables and state management
+
+import { blankGradesForm } from "../elements";
+import useReducer from "../useReducer";
 
 const { blankGradesFillInput, markAsMissingCheckbox } = blankGradesForm;
 

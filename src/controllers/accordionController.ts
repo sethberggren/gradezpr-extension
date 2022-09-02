@@ -1,8 +1,8 @@
-import { advancedSettingAccordions } from "./elements";
-import { hide, show } from "./visibility";
+import { accordions } from "../elements";
+import { hide, show } from "../visibility";
 
 export default function accordionController() {
-  advancedSettingAccordions.forEach((accordion) => {
+  accordions.forEach((accordion) => {
     accordion.controller.onclick = () => accordionOnClick(accordion);
   });
 }
